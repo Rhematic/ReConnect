@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 function AdminSearchView() {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function AdminSearchView() {
   const [dialogContent, setDialogContent] = useState("");
   const [isResponseDialogOpen, setIsResponseDialogOpen] = useState(false);
   const [responseDialogContent, setResponseDialogContent] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: "FETCH_JOURNAL" });
@@ -46,6 +48,8 @@ function AdminSearchView() {
       <p>Admin Search View</p>
       <button onClick={handleViewJournal}>View Journals</button>
       <button onClick={handleViewResponse}>View Responses</button>
+      <button onClick={() => history.push("/admin")}>Back to Admin Home</button>
+
       {showJournal && (
         <table>
           <thead>
@@ -62,7 +66,7 @@ function AdminSearchView() {
                 <td>{new Date(item.created_at).toLocaleDateString()}</td>
                 <td>
                   <button onClick={() => handleOpenDialog(item.detail)}>
-                    View Journal
+                    View Journal Response
                   </button>
                 </td>
               </tr>
@@ -86,7 +90,7 @@ function AdminSearchView() {
                 <td>{new Date(item.created_at).toLocaleDateString()}</td>
                 <td>
                   <button onClick={() => handleOpenResponseDialog(item.detail)}>
-                    View Response
+                    View Emotion Survey Response
                   </button>
                 </td>
               </tr>
