@@ -1,10 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import './AdminConsole.css';
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import "./AdminConsole.css";
 function AdminConsoleView() {
   const history = useHistory();
 
@@ -73,10 +73,11 @@ function AdminConsoleView() {
       </ButtonGroup>
     </Box> */}
 
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
-            <button className="button-style"
+            <button
+              className="button-style"
               // useHistory to push to admin search view
               onClick={() => history.push("/admin/search")}
             >
@@ -84,26 +85,31 @@ function AdminConsoleView() {
             </button>
           </Grid>
           <Grid item xs={6}>
-            <button className="button-style"
-            onClick={() => history.push("/admin/resources")}>
+            <button
+              className="button-style"
+              onClick={() => history.push("/admin/resources")}
+            >
               EDIT RESOURCES
             </button>
           </Grid>
           <Grid item xs={6}>
-            <button className="button-style"
-            onClick={() => history.push("/admin/prompts")}>
+            <button
+              className="button-style"
+              onClick={() => history.push("/admin/prompts")}
+            >
               EDIT JOURNAL PROMPTS
             </button>
           </Grid>
           <Grid item xs={6}>
-            <button className="button-style"
-            onClick={() => history.push("/admin/questions")}>
+            <button
+              className="button-style"
+              onClick={() => history.push("/admin/questions")}
+            >
               EDIT SURVEY QUESTIONS
             </button>
           </Grid>
         </Grid>
       </Box>
-    </div>
     </div>
   );
 }
