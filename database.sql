@@ -199,3 +199,25 @@ INSERT INTO question_options (question_id, detail) VALUES
 (7, 'Other'),
 (8, 'Yes'),
 (8, 'No');
+
+-- CREATE TABLE response (
+--     id SERIAL PRIMARY KEY,
+--     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--     user_id INT REFERENCES "user"(id),
+--     date DATE NOT NULL,
+--     question_id INT REFERENCES question(id),
+--     response TEXT
+-- );
+
+-- add dummy data to the response table for each question I inserted above
+INSERT INTO response (user_id, date, question_id, response)
+VALUES (1, '2020-01-01', 1, 'Strongly Disagree'),
+(1, '2020-01-01', 2, 'Strongly Disagree'),
+(1, '2020-01-01', 3, 'Strongly Disagree'),
+(1, '2020-01-01', 4, 'Strongly Disagree'),
+(1, '2020-01-01', 5, 'Strongly Disagree'),
+(1, '2020-01-01', 6, 'Strongly Disagree'),
+(1, '2020-01-01', 7, 'Talking to a counselor or therapist|Physical activity'),
+(1, '2020-01-01', 8, 'Yes'),
+(1, '2020-01-01', 9, 'I wish my parents understood that I am feeling sad and confused about their divorce.'),
+(1, '2020-01-01', 10, 'I think my parents could better support me by talking to me about their divorce and how it will affect me.');
