@@ -28,9 +28,13 @@ router.post("/", (req, res) => {
 
   const date = new Date(req.body.date);
   const timeParts = req.body.time.split(":");
-  date.setHours(timeParts[0], timeParts[1]);
-
-  const timestamp = date.toISOString();
+  date.setUTCHours(timeParts[0], timeParts[1]);
+  
+  // Convert the date to a UTC timestamp
+  const utcTimestamp = date.toISOString();
+  
+  // Output the UTC timestamp
+  console.log('UTC Timestamp:', utcTimestamp);
   const queryText = `
       WITH user_family AS (
         SELECT family_id 
@@ -48,7 +52,7 @@ router.post("/", (req, res) => {
       `;
 
   pool
-    .query(queryText, [req.user.id, req.body.date, req.body.detail, timestamp])
+    .query(queryText, [req.user.id, req.body.date, req.body.detail, utcTimestamp])
     .then((result) => {
       res.sendStatus(201);
     })

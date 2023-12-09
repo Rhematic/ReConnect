@@ -1,6 +1,11 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 import "./CalendarView.css";
 
@@ -18,7 +23,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 
@@ -46,6 +50,10 @@ function CustomDay(props) {
     </Badge>
   );
 }
+
+
+
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -54,6 +62,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+
 
 // Main component for the StaticDatePicker with Events
 function CalanderView() {
@@ -72,6 +82,7 @@ function CalanderView() {
   // Fetch events from the Redux store on component mount
   React.useEffect(() => {
     dispatch({ type: "FETCH_EVENT" });
+    console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
   }, [dispatch]);
 
   // Get events from the Redux store
@@ -80,6 +91,7 @@ function CalanderView() {
   // State for the currently selected date and its events
   const [selectedDate, setSelectedDate] = React.useState(dayjs());
   const [selectedEvents, setSelectedEvents] = React.useState([]);
+  const [sortedEvents, setSortedEvents] = React.useState([]);
 
   // Handle date change event
   const handleDateChange = (newValue) => {
@@ -94,22 +106,30 @@ function CalanderView() {
     setSelectedEvents(eventsForDay);
   };
 
+  // Sorting date function
+  const compareDates = (a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    // Compare the dates directly
+    return dateA - dateB;
+  };
+
+
   // Fetch and update events when the component mounts
   React.useEffect(() => {
-    handleDateChange(selectedDate);
-  }, [selectedDate]);
+    if (events.length > 0) {
+      handleDateChange(selectedDate);
+      setSortedEvents(events.sort(compareDates))
+    }
+  }, [selectedDate, events]);
 
   return (
     <div className="calendar-page">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         {/* StaticDatePicker with custom day rendering */}
 
-        <Button sx={{
-          backgroundColor: '#12646a',
-          color: "white",
-        }} variant="contained" onClick={handleClickOpen}>
-          All Events
-        </Button>
+
         <BootstrapDialog
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
@@ -131,10 +151,12 @@ function CalanderView() {
             <CloseIcon />
           </IconButton>
           <DialogContent dividers>
-            {events.map((event, index) => (
-              <Typography key={index}>
-                {event.date} - {event.detail} ({event.time})
-              </Typography>
+            {sortedEvents.map((event, index) => (
+              <div className="events-display" key={index}>
+                {event.detail}
+                <div>{dayjs(event.date).format('MM/DD/YYYY')} @ {dayjs(event.time).format('h:mm A')}
+                </div>
+              </div>
             ))}
           </DialogContent>
           <DialogActions>
@@ -171,7 +193,16 @@ function CalanderView() {
           }}
         />
 
+        <Button fullWidth sx={{
+          backgroundColor: '#1399a3',
+          color: "white",
+          textAlign: 'center',
+          marginBottom: '10px',
+          borderRadius: '15px',
 
+        }} variant="contained" onClick={handleClickOpen}>
+          View All Events
+        </Button>
         <div className="add-event">
           <TextField fullWidth type="text" id="detail" label="Event Details" variant="outlined" />
           <div>
@@ -182,7 +213,7 @@ function CalanderView() {
               height: '55px',
               marginTop: "10px",
               marginLeft: "10px",
-              backgroundColor: '#EFCD3E',
+              backgroundColor: '#1399a3',
               color: "white",
             }} variant="contained "
               onClick={() =>
@@ -201,13 +232,16 @@ function CalanderView() {
           </div>
         </div>
 
-        <h2>Events for {dayjs(selectedDate).format("MM/DD/YYYY")}:</h2>
+        <p className="events-for-title">Events for {dayjs(selectedDate).format("MM/DD/YYYY")}:</p>
         {/* Display events for the selected date */}
         {selectedEvents.map((event, index) => (
-          <div key={index}>
-            {event.detail} @ {dayjs(event.time).format('h:mm A')}
+          <div className="events-display" key={index}>
+            {event.detail} @ {dayjs(event.time).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('h:mm A')}
           </div>
         ))}
+        {selectedEvents.length === 0 && (
+          <p className="events-display">No events</p>
+        )}
       </LocalizationProvider>
     </div>
   );
