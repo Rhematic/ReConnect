@@ -3,8 +3,10 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  const accessLevelQuery = req.user.access_level === 'admin' || req.user.access_level === 'parent' ? 'parent' : 'child';
-  const queryText = `SELECT * FROM "resource" WHERE access_level = '${accessLevelQuery}' ORDER BY "id" ASC;`;
+  let queryText = `SELECT * FROM "resource" WHERE access_level = '${req.user.access_level}' ORDER BY "id" ASC;`;
+  if (req.user.access_level === 'admin'){
+    queryText = `SELECT * FROM "resource" ORDER BY "id" ASC;` 
+  }
 
   pool
     .query(queryText)

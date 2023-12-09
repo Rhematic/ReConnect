@@ -38,14 +38,13 @@ function LikertForm() {
 
     if (selectedQuestion) {
       dispatch({
-        type: 'FETCH_REPLY_LIKERT',
-        payload: {
-          response: replyBody,
-          question_id: selectedQuestion.id,
-          score: currentScore[selectedQuestion.id] || 0, // Use the selected score from state
-          user_id: userId,
-          date: currentDate,
-        },
+          type: 'FETCH_REPLY_LIKERT',
+          payload: {
+              response: currentScore[selectedQuestion.id].toString(), // Convert to string
+              user_id: userId,
+              date: currentDate.format(), // Format date
+              question_id: selectedQuestion.id,
+          },
       });
     } else {
       alert('Please select a question before submitting.');

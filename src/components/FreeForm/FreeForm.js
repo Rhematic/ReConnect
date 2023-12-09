@@ -30,8 +30,7 @@ function FreeForm() {
                 type: 'FETCH_REPLY_FREEFORM',
                 payload: {
                     response: replyBody,
-                    question_id: selectedQuestion.id,
-                    score: score,
+                    question_id: selectedQuestion.id,   
                     user_id: userId,
                     date: currentDate,
                 },
@@ -42,13 +41,13 @@ function FreeForm() {
     };
 
     return (
-        <div>
-            <h2
+        <div className='survey-backgorund'>
+            {/* <h2
                 className='title'
                 style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}
             >
                 Response Free Writing
-            </h2>
+            </h2> */}
             <div>
                 {freeformList.map((freeform) => (
                     <div
@@ -58,8 +57,8 @@ function FreeForm() {
                         style={{
                             padding: '10px',
                             margin: '10px',
-                            borderRadius: '10px',
-                            border: `2px solid ${selectedQuestion === freeform ? 'blue' : 'gray'}`,
+                            paddingBottom: '20px',
+                            borderBottom: `1px solid ${selectedQuestion === freeform ? 'blue' : 'gray'}`,
                         }}>
                         <h3>{freeform.id}. {freeform.detail}</h3>
                         <form
@@ -67,16 +66,14 @@ function FreeForm() {
                             onSubmit={(e) => addFreeformReply(e)}
                         // style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}
                         >
-                            <input type='text' placeholder='' value={replyBody} onChange={(e) => setReplyBody(e.target.value)} />
+                            <input className="inputfield" type='text' placeholder='' value={replyBody} onChange={(e) => setReplyBody(e.target.value)} />
                             <br />
-                            <button type='submit'>Submit</button>
+                            <button className='submit-button' type='submit'>Submit</button>
                         </form>
                     </div>
                 ))}
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
+             
+               
             </div>
         </div>
     )

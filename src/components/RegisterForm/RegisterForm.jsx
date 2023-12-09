@@ -13,6 +13,7 @@ function RegisterForm() {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [accessLevel, setAccessLevel] = useState("");
@@ -30,6 +31,7 @@ function RegisterForm() {
         dateOfBirth: dateOfBirth,
         city: city,
         state: state,
+        email: email,
         username: username,
         password: password,
         accessLevel: accessLevel,
@@ -153,6 +155,24 @@ function RegisterForm() {
           label="Email"
           variant="outlined"
           type="text"
+          name="email"
+          value={email}
+          required
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </div>
+      <div style={{ marginBottom: "10px" }}>
+        <TextField
+          InputProps={{
+            style: {
+              borderRadius: "40px",
+              width: "250px",
+              backgroundColor: "white",
+            }
+          }}
+          label="Username"
+          variant="outlined"
+          type="text"
           name="username"
           value={username}
           required
@@ -196,6 +216,7 @@ function RegisterForm() {
             </MenuItem>
             <MenuItem value="parent">Parent</MenuItem>
             <MenuItem value="child">Child</MenuItem>
+            <MenuItem value="admin">Admin</MenuItem>
           </Select>
         </label>
       </div>

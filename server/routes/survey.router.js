@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     console.log('/survey GET route');
-    let queryText = `SELECT * from "question" WHERE "hidden" = false AND "type" = 'boolean' ORDER BY "id" ASC`;
+    let queryText = `SELECT * from "question" WHERE "hidden" = false AND "type" = 'multi' ORDER BY "id" ASC`;
     pool.query(queryText).then((result) => {
         res.send(result.rows);
     }).catch((err) => {
@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
     console.log("user", req.user);
 
     let queryText = `
-    INSERT INTO "response" ("response", "user_id", "date", "question_id", "score")
+    INSERT INTO "response" ("response", "user_id", "date", "question_id", "response")
     VALUES ($1, $2, $3, $4, $5);
 `;
         const queryParams = [

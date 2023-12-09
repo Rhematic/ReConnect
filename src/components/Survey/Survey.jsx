@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LikertForm from '../LikertForm/LikertForm';
 import FreeForm from '../FreeForm/FreeForm';
 import BooleanForm from '../BooleanForm/BooleanForm';
+import './Survey.css';
 
 const likertOptionStyle = {
   padding: '5px',
@@ -61,6 +62,7 @@ function Survey() {
 
   return (
     <div>
+      <h2 className="survey-title">SURVEY</h2>
     
     <LikertForm />
     <FreeForm />

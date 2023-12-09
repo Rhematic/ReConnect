@@ -100,12 +100,15 @@ function App() {
         </Route>
 
         <Route exact path="/home">
-          {user.id ? (
+          {user.id && user.access_level === 'admin' ? (
             // If the user is already logged in,
-            // redirect them to the /user page
+            // redirect them to the /calendar page
+            <Redirect to="/admin" />
+          ) : user.id ? (
+            // If the user is a guest, do something else
             <Redirect to="/calendar" />
           ) : (
-            // Otherwise, show the Landing page
+            // Otherwise, show the LandingPage
             <LandingPage />
           )}
         </Route>
@@ -141,12 +144,23 @@ function App() {
         </Route>
 
         <ProtectedRoute
-            // logged in shows CalendarView else shows LoginPage
-            exact
-            path="/calendar"
-          >
+          // logged in shows CalendarView else shows LoginPage
+          exact
+          path="/calendar"
+        >
+          {user.id && user.access_level === 'admin' ? (
+            // If the user is already logged in,
+            // redirect them to the /calendar page
+            <Redirect to="/admin" />
+          ) : user.id ? (
+            // If the user is a guest, do something else
             <CalendarView />
-          </ProtectedRoute>
+          ) : (
+            // Otherwise, show the LandingPage
+            <LandingPage />
+          )}
+         
+        </ProtectedRoute>
 
         <Route exact path="/resources">
           <ResourcesView />
