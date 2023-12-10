@@ -8,41 +8,71 @@ import MenuItem from "@mui/material/MenuItem";
 import ContainedButton from "@mui/material/Button";
 
 function RegisterForm() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [accessLevel, setAccessLevel] = useState("");
+  const [memberDetail, setMemberDetail] = useState({
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    city: "",
+    state: "",
+    username: "",
+    password: "",
+    accessLevel: "",
+  });
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [familyMembers, setFamilyMembers] = useState([]);
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
-  const registerUser = (event) => {
-    event.preventDefault();
+  const handleChange = (event) => {
+    setMemberDetail({
+      ...memberDetail,
+      [event.target.name]: event.target.value,
+    });
+  };
 
+  const handleConfirm = () => {
+    setShowDialog(true);
+  };
+
+  const addMemberToFamily = (e) => {
+    e.preventDefault();
+
+    const newFamilyMembers = [...familyMembers, memberDetail];
+    setFamilyMembers(newFamilyMembers);
+
+    console.log("familyMembers", newFamilyMembers);
+
+    handleConfirm();
+  };
+
+  const handleYes = () => {
+    setMemberDetail({
+      firstName: "",
+      lastName: "",
+      dateOfBirth: "",
+      city: "",
+      state: "",
+      username: "",
+      password: "",
+      accessLevel: "",
+    });
+    setShowDialog(false);
+  };
+
+  const handleNo = () => {
     dispatch({
       type: "REGISTER",
-      payload: {
-        firstName: firstName,
-        lastName: lastName,
-        dateOfBirth: dateOfBirth,
-        city: city,
-        state: state,
-        email: email,
-        username: username,
-        password: password,
-        accessLevel: accessLevel,
-      },
+      payload: familyMembers,
     });
+    setShowDialog(false);
   };
 
   return (
     <form
       className="formPanel"
-      onSubmit={registerUser}
+      onSubmit={addMemberToFamily}
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <h2>Register User</h2>
@@ -51,6 +81,18 @@ function RegisterForm() {
         <h3 className="alert" accessLevel="alert">
           {errors.registrationMessage}
         </h3>
+      )}
+
+      {showDialog && (
+        <div className="dialog" style={{ position: "fixed", zIndex: 9999 }}>
+          <div className="dialog-content">
+            <h2>Register another family member?</h2>
+            <button style={{ marginRight: "10px" }} onClick={handleYes}>
+              Yes
+            </button>
+            <button onClick={handleNo}>No</button>
+          </div>
+        </div>
       )}
 
       <div style={{ marginBottom: "10px" }}>
@@ -66,12 +108,11 @@ function RegisterForm() {
           variant="outlined"
           type="text"
           name="firstName"
-          value={firstName}
+          value={memberDetail.firstName}
           required
-          onChange={(event) => setFirstName(event.target.value)}
+          onChange={handleChange}
         />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+
         <TextField
           InputProps={{
             style: {
@@ -84,12 +125,11 @@ function RegisterForm() {
           variant="outlined"
           type="text"
           name="lastName"
-          value={lastName}
+          value={memberDetail.lastName}
           required
-          onChange={(event) => setLastName(event.target.value)}
+          onChange={handleChange}
         />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+
         <TextField
           InputProps={{
             style: {
@@ -102,84 +142,62 @@ function RegisterForm() {
           variant="outlined"
           type="text"
           name="dateOfBirth"
-          value={dateOfBirth}
+          value={memberDetail.dateOfBirth}
           required
-          onChange={(event) => setDateOfBirth(event.target.value)}
+          onChange={handleChange}
         />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+
         <TextField
           InputProps={{
             style: {
               borderRadius: "40px",
               width: "250px",
               backgroundColor: "white",
-            }
+            },
           }}
           label="City"
           variant="outlined"
           type="text"
           name="city"
-          value={city}
+          value={memberDetail.city}
           required
-          onChange={(event) => setCity(event.target.value)}
+          onChange={handleChange}
         />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+
         <TextField
           InputProps={{
             style: {
               borderRadius: "40px",
               width: "250px",
               backgroundColor: "white",
-            }
+            },
           }}
           label="State"
           variant="outlined"
           type="text"
           name="state"
-          value={state}
+          value={memberDetail.state}
           required
-          onChange={(event) => setState(event.target.value)}
+          onChange={handleChange}
         />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+
         <TextField
           InputProps={{
             style: {
               borderRadius: "40px",
               width: "250px",
               backgroundColor: "white",
-            }
+            },
           }}
           label="Email"
           variant="outlined"
           type="text"
-          name="email"
-          value={email}
-          required
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
-        <TextField
-          InputProps={{
-            style: {
-              borderRadius: "40px",
-              width: "250px",
-              backgroundColor: "white",
-            }
-          }}
-          label="Username"
-          variant="outlined"
-          type="text"
           name="username"
-          value={username}
+          value={memberDetail.username}
           required
-          onChange={(event) => setUsername(event.target.value)}
+          onChange={handleChange}
         />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+
         <TextField
           InputProps={{
             style: {
@@ -192,16 +210,16 @@ function RegisterForm() {
           variant="outlined"
           type="password"
           name="password"
-          value={password}
+          value={memberDetail.password}
           required
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div style={{ marginBottom: "20px" }}>
         <label htmlFor="accessLevel">
           <Select
-            value={accessLevel}
-            onChange={(event) => setAccessLevel(event.target.value)}
+            value={memberDetail.accessLevel}
+            onChange={handleChange}
             style={{
               borderRadius: "40px",
               width: "250px",
@@ -209,7 +227,7 @@ function RegisterForm() {
             }}
             displayEmpty
             required
-            inputProps={{ "aria-label": "Without label" }}
+            inputProps={{ "aria-label": "Without label", name: "accessLevel" }}
           >
             <MenuItem value="" disabled>
               Select Role

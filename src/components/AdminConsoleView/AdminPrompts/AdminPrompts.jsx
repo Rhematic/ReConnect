@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./AdminPrompts.css";
+import { useHistory } from "react-router-dom";
 
 function AdminPrompts() {
   const prompt = useSelector((state) => state.prompt);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPrompt, setcurrentPrompt] = useState({
     id: null,
@@ -59,6 +60,7 @@ function AdminPrompts() {
         ))}
       </ul>
       <button onClick={() => openModal()}>Add prompt</button>
+      <button onClick={() => history.push("/admin")}>Back to Admin Home</button>
 
       {isModalOpen && (
         <div className="dialog">

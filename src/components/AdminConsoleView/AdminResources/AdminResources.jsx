@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./AdminResources.css";
+import { useHistory } from "react-router-dom";
 
 function AdminResources() {
   const resource = useSelector((state) => state.resource);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentResource, setCurrentResource] = useState({
     id: null,
@@ -65,6 +66,7 @@ function AdminResources() {
         ))}
       </ul>
       <button onClick={() => openModal()}>Add Resource</button>
+      <button onClick={() => history.push("/admin")}>Back to Admin Home</button>
 
       {isModalOpen && (
         <div className="dialog">

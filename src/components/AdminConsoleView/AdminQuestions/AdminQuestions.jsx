@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./AdminQuestions.css";
+import { useHistory } from "react-router-dom";
 
 function AdminQuestions() {
   const question = useSelector((state) => state.question);
   const dispatch = useDispatch();
   const optionIdCounter = useRef(0);
+  const history = useHistory();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState({
@@ -109,6 +111,7 @@ function AdminQuestions() {
           ))}
       </ul>
       <button onClick={() => openModal()}>Add question</button>
+      <button onClick={() => history.push("/admin")}>Back to Admin Home</button>
 
       {isModalOpen && (
         <div className="dialog">

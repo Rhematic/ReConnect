@@ -1,0 +1,26 @@
+.button-style{
+ width: 100%;   
+ height: 150px;
+ border-radius: 10px;
+ border: none;
+ background-color: #1399A3;
+ color: white;
+ margin-top: 10px;
+ font-weight: bold;
+ font-size: medium;
+}
+
+.admin-header{
+    width: 100%;
+    background-color: #EFCD3E;
+    color: #12646a;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+
+}
+
+.container{
+    margin-top: 20px;
+}

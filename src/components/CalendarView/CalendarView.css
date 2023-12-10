@@ -25,3 +25,29 @@
     color: #EFCD3E;
 }
 
+.add-event{ 
+  margin-top: 5px;
+}
+
+.calendar-page{
+   padding-right: 30px; 
+   padding-left: 30px;
+   padding-bottom: 60px;
+}
+
+.events-display{
+    padding-bottom: 10px;
+    width: 100%;
+    background-color: #ebe9e9;
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center; 
+    margin-bottom: 10px;
+}
+
+.events-for-title{
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+}
