@@ -7,7 +7,6 @@ CREATE TABLE "user" (
   date_of_birth DATE,
   city VARCHAR(255),
   state VARCHAR(255),
-  email VARCHAR(255),
   is_parent BOOLEAN DEFAULT true,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   access_level VARCHAR(255) NOT NULL
