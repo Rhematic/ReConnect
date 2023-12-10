@@ -25,9 +25,9 @@ router.post('/', (req, res) => {
         console.log('user', req.user);
 
         let queryText = `
-    INSERT INTO "response" ("user_id", "date", "question_id", "response")
-    VALUES ($1, $2, $3, $4);
-`;
+            INSERT INTO "response" ("response", "user_id", "date", "question_id")
+            VALUES ($1, $2, $3, $4);
+        `;
 
         const queryParams = [
             req.body.response,
@@ -35,7 +35,6 @@ router.post('/', (req, res) => {
             req.body.date,
             req.body.question_id,       
         ];
-
 
         pool.query(queryText, queryParams)
             .then(result => {

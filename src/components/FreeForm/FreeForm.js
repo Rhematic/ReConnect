@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './FreeForm.css';
 
 function FreeForm() {
-
     const dispatch = useDispatch();
     const freeformList = useSelector((store) => store.freeformReducer.freeformList);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
-    const [replyBody, setReplyBody] = useState('');
+    const [responseState, setResponseState] = useState({});
     const [userId, setUserId] = useState(0);
-    const [score, setScore] = useState(0);
     const currentDate = dayjs();
 
     useEffect(() => {
@@ -29,10 +27,10 @@ function FreeForm() {
             dispatch({
                 type: 'FETCH_REPLY_FREEFORM',
                 payload: {
-                    response: replyBody,
+                    response: responseState[selectedQuestion.id] || '',
                     question_id: selectedQuestion.id,   
                     user_id: userId,
-                    date: currentDate,
+                    date: currentDate.format(),
                 },
             });
         } else {
@@ -40,14 +38,16 @@ function FreeForm() {
         }
     };
 
+    const handleInputChange = (e) => {
+        const { value } = e.target;
+        setResponseState(prevState => ({
+            ...prevState,
+            [selectedQuestion.id]: value,
+        }));
+    };
+
     return (
         <div className='survey-backgorund'>
-            {/* <h2
-                className='title'
-                style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}
-            >
-                Response Free Writing
-            </h2> */}
             <div>
                 {freeformList.map((freeform) => (
                     <div
@@ -63,20 +63,17 @@ function FreeForm() {
                         <h3>{freeform.id}. {freeform.detail}</h3>
                         <form
                             className='free write form'
-                            onSubmit={(e) => addFreeformReply(e)}
-                        // style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}
+                            onSubmit={addFreeformReply}
                         >
-                            <input className="inputfield" type='text' placeholder='' value={replyBody} onChange={(e) => setReplyBody(e.target.value)} />
+                            <input className="inputfield" type='text' placeholder='' value={responseState[freeform.id] || ''} onChange={handleInputChange} />
                             <br />
                             <button className='submit-button' type='submit'>Submit</button>
                         </form>
                     </div>
                 ))}
-             
-               
             </div>
         </div>
-    )
+    );
 }
 
 export default FreeForm;
