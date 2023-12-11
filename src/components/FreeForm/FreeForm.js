@@ -81,14 +81,13 @@ function FreeForm({ formData, setFormData, clearForm }) {
                             padding: '10px',
                             margin: '10px',
                             paddingBottom: '20px',
-                            borderBottom: `1px solid ${selectedQuestion === freeform ? 'blue' : '#efcd3e'}`,
                         }}>
                         <h3> {freeform.detail}</h3>
                         <form
                             className='free write form'
                             onSubmit={addFreeformReply}
                         >
-                            <textarea className="inputfield" type='text' placeholder='     Write your thoughts' value={responseState[freeform.id] || ''} onChange={handleInputChange} />
+                            <textarea className="inputfield" type='text' placeholder='Write your thoughts' value={responseState[freeform.id] || ''} onChange={handleInputChange} />
                             <br />
                         </form>
                     </div>

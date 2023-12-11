@@ -88,12 +88,6 @@ function LikertForm({ formData, setFormData, clearForm }) {
             className='entry'
             key={likert.id}
             onClick={() => setSelectedQuestion(likert)}
-            style={{
-              padding: '10px',
-              margin: '10px',
-              borderRadius: '10px',
-              border: `2px solid ${selectedQuestion === likert ? 'blue' : '#efcd3e'}`,
-            }}
           >
             <h3> {likert.detail}</h3>
             <form ref={likertFormRef} className='likert form' onSubmit={(e) => addLikertReply(e)}>
