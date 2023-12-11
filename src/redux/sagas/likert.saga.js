@@ -23,7 +23,6 @@ function* addLikertReply(action) {
     });
     yield put({ type: 'SET_REPLY_LIKERT', payload: likertReply.data });
 
-    // Dispatch action to indicate successful submission of all forms
     // yield put({ type: 'SUBMIT_ALL_FORMS_SUCCESS', payload: likertReply.data });
   } catch (error) {
     console.log('ERROR in addLikertReply', error);

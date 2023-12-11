@@ -15,7 +15,7 @@ const selectedOptionStyle = {
   fontWeight: 'bold',
 };
 
-function LikertForm({ formData, setFormData }) {
+function LikertForm({ formData, setFormData, clearForm }) {
   const dispatch = useDispatch();
   const likertList = useSelector((store) => store.likertReducer.likertList);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -35,7 +35,7 @@ function LikertForm({ formData, setFormData }) {
 
   const addLikertReply = (event) => {
     event.preventDefault();
-
+  
     if (selectedQuestion) {
       dispatch({
           type: 'FETCH_REPLY_LIKERT',
@@ -45,11 +45,24 @@ function LikertForm({ formData, setFormData }) {
               date: currentDate.format(),
               question_id: selectedQuestion.id,
           },
+      })
+      .then((result) => {
+        if (result && result.status === 201) {
+          clearForm();
+        } else {
+          console.error('Failed to submit likert reply:', result);
+          alert('Failed to submit likert reply!');
+        }
+      })
+      .catch((error) => {
+        console.error('Error submitting likert reply:', error);
+        alert('Failed to submit likert reply!');
       });
     } else {
       alert('Please select a question before submitting.');
     }
   };
+  
 
   const handleLikertClick = (questionId, selectedScore) => {
     setCurrentScore((prevScore) => ({ ...prevScore, [questionId]: selectedScore }));
@@ -68,10 +81,7 @@ function LikertForm({ formData, setFormData }) {
   }, [currentScore, selectedQuestion, setFormData]);
 
   return (
-    <div>
-      {/* <h2 className='title' style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}>
-        Response 1-5
-      </h2> */}
+    <div className='survey-background'>
       <div>
         {likertList.map((likert) => (
           <div
@@ -82,10 +92,10 @@ function LikertForm({ formData, setFormData }) {
               padding: '10px',
               margin: '10px',
               borderRadius: '10px',
-              border: `2px solid ${selectedQuestion === likert ? 'blue' : 'gray'}`,
+              border: `2px solid ${selectedQuestion === likert ? 'blue' : '#efcd3e'}`,
             }}
           >
-            <h3>{likert.id}. {likert.detail}</h3>
+            <h3> {likert.detail}</h3>
             <form ref={likertFormRef} className='likert form' onSubmit={(e) => addLikertReply(e)}>
               <div style={{ display: 'flex' }}>
                 <span
@@ -118,7 +128,6 @@ function LikertForm({ formData, setFormData }) {
                 >
                   5 Strongly Agree
                 </span>
-                {/* <button type='submit'>Submit</button> */}
               </div>
             </form>
           </div>

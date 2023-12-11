@@ -13,6 +13,13 @@ function Survey() {
   const [freeFormData, setFreeFormData] = useState({});
   // const [booleanFormData, setBooleanFormData] = useState({});
 
+
+  const clearForm = () => {
+    setLikertFormData({});
+    setFreeFormData({});
+    // setBooleanFormData({});
+  };
+
   const handleSubmit = () => {
     dispatch({
       type: 'SUBMIT_ALL_FORMS',
@@ -23,28 +30,23 @@ function Survey() {
       },
     });
 
-    // Clear the form data
-    setLikertFormData({});
-    setFreeFormData({});
-    // setBooleanFormData({});
+    
+    clearForm();
 
-    // Show alert
+    
     alert('Your answers have been submitted!');
   };
 
   return (
     <div>
       <h2 className="survey-title">SURVEY</h2>
-      
-      <LikertForm formData={likertFormData} setFormData={setLikertFormData} />
 
-      
-      <FreeForm formData={freeFormData} setFormData={setFreeFormData} />
+      <LikertForm formData={likertFormData} setFormData={setLikertFormData} clearForm={clearForm} />
 
-      
-      {/* <BooleanForm formData={booleanFormData} setFormData={setBooleanFormData} /> */}
+      <FreeForm formData={freeFormData} setFormData={setFreeFormData} clearForm={clearForm} />
 
-      
+      {/* <BooleanForm formData={booleanFormData} setFormData={setBooleanFormData} clearForm={clearForm} /> */}
+
       <button className="submit-button" onClick={handleSubmit}>
         Submit All Answers
       </button>
@@ -56,9 +58,7 @@ function Survey() {
       <br />
       <br />
     </div>
-    
   );
 }
 
 export default Survey;
-
