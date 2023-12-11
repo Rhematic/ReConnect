@@ -15,13 +15,13 @@ const selectedOptionStyle = {
   fontWeight: 'bold',
 };
 
-function LikertForm() {
+function LikertForm({ formData, setFormData, clearForm }) {
   const dispatch = useDispatch();
   const likertList = useSelector((store) => store.likertReducer.likertList);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [replyBody, setReplyBody] = useState('');
   const [userId, setUserId] = useState(0);
-  const [currentScore, setCurrentScore] = useState({}); // State to store selected score for each question
+  const [currentScore, setCurrentScore] = useState({});
   const currentDate = dayjs();
   const likertFormRef = useRef(null);
 
@@ -35,21 +35,34 @@ function LikertForm() {
 
   const addLikertReply = (event) => {
     event.preventDefault();
-
+  
     if (selectedQuestion) {
       dispatch({
           type: 'FETCH_REPLY_LIKERT',
           payload: {
-              response: currentScore[selectedQuestion.id].toString(), // Convert to string
+              response: currentScore[selectedQuestion.id].toString(),
               user_id: userId,
-              date: currentDate.format(), // Format date
+              date: currentDate.format(),
               question_id: selectedQuestion.id,
           },
+      })
+      .then((result) => {
+        if (result && result.status === 201) {
+          clearForm();
+        } else {
+          console.error('Failed to submit likert reply:', result);
+          alert('Failed to submit likert reply!');
+        }
+      })
+      .catch((error) => {
+        console.error('Error submitting likert reply:', error);
+        alert('Failed to submit likert reply!');
       });
     } else {
       alert('Please select a question before submitting.');
     }
   };
+  
 
   const handleLikertClick = (questionId, selectedScore) => {
     setCurrentScore((prevScore) => ({ ...prevScore, [questionId]: selectedScore }));
@@ -58,11 +71,17 @@ function LikertForm() {
     }
   };
 
+  useEffect(() => {
+    if (selectedQuestion) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [selectedQuestion.id]: currentScore[selectedQuestion.id],
+      }));
+    }
+  }, [currentScore, selectedQuestion, setFormData]);
+
   return (
-    <div>
-      <h2 className='title' style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}>
-        Response 1-5
-      </h2>
+    <div className='survey-background'>
       <div>
         {likertList.map((likert) => (
           <div
@@ -73,10 +92,10 @@ function LikertForm() {
               padding: '10px',
               margin: '10px',
               borderRadius: '10px',
-              border: `2px solid ${selectedQuestion === likert ? 'blue' : 'gray'}`,
+              border: `2px solid ${selectedQuestion === likert ? 'blue' : '#efcd3e'}`,
             }}
           >
-            <h3>{likert.id}. {likert.detail}</h3>
+            <h3> {likert.detail}</h3>
             <form ref={likertFormRef} className='likert form' onSubmit={(e) => addLikertReply(e)}>
               <div style={{ display: 'flex' }}>
                 <span
@@ -109,15 +128,11 @@ function LikertForm() {
                 >
                   5 Strongly Agree
                 </span>
-                <button type='submit'>Submit</button>
               </div>
             </form>
           </div>
         ))}
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+        
       </div>
     </div>
   );

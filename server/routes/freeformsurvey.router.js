@@ -16,6 +16,8 @@ router.get('/', (req, res) => {
     })
 });
 
+// likertsurvey.router.js
+
 router.post('/', (req, res) => {
     console.log('/survey POST route');
     console.log(req.body);
@@ -24,31 +26,38 @@ router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('user', req.user);
 
-        let queryText = `
-    INSERT INTO "response" ("user_id", "date", "question_id", "response")
-    VALUES ($1, $2, $3, $4);
-`;
+        const responses = req.body.response;
 
-        const queryParams = [
-            req.body.response,
-            req.user.id,
-            req.body.date,
-            req.body.question_id,       
-        ];
+        // Iterate through each question in the response
+        for (const questionId in responses) {
+            const queryText = `
+                INSERT INTO "response" ("response", "user_id", "date", "question_id")
+                VALUES ($1, $2, $3, $4);
+            `;
+            
+            const queryParams = [
+                responses[questionId],
+                req.user.id,
+                req.body.date,
+                questionId,
+            ];
 
+            pool.query(queryText, queryParams)
+                .then(result => {
+                    console.log(`Response for question ${questionId} inserted successfully`);
+                })
+                .catch(error => {
+                    console.log(error);
+                    res.sendStatus(500);
+                });
+        }
 
-        pool.query(queryText, queryParams)
-            .then(result => {
-                res.sendStatus(201);
-            })
-            .catch(error => {
-                console.log(error);
-                res.sendStatus(500);
-            });
+        res.sendStatus(201); // Respond after all responses are inserted
     } else {
         res.sendStatus(401);
     }
 });
+
 
 module.exports = router;
 

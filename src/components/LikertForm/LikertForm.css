@@ -1,0 +1,29 @@
+.entry{
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+    background-color: #efcd3e;
+}
+
+.likert form{
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 20px;
+    border: none;
+    font-size: medium;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 85%; 
+}
+
+.survey-background{
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+    background-color: #efcd3e;
+}
