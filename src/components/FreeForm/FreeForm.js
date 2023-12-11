@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './FreeForm.css';
 
-function FreeForm() {
+function FreeForm({ formData, setFormData }) {
     const dispatch = useDispatch();
     const freeformList = useSelector((store) => store.freeformReducer.freeformList);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -40,11 +40,20 @@ function FreeForm() {
 
     const handleInputChange = (e) => {
         const { value } = e.target;
-        setResponseState(prevState => ({
+        setResponseState((prevState) => ({
             ...prevState,
             [selectedQuestion.id]: value,
         }));
     };
+
+    useEffect(() => {
+        if (selectedQuestion) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                [selectedQuestion.id]: responseState[selectedQuestion.id],
+            }));
+        }
+    }, [responseState, selectedQuestion, setFormData]);
 
     return (
         <div className='survey-backgorund'>
@@ -67,11 +76,12 @@ function FreeForm() {
                         >
                             <input className="inputfield" type='text' placeholder='' value={responseState[freeform.id] || ''} onChange={handleInputChange} />
                             <br />
-                            <button className='submit-button' type='submit'>Submit</button>
+                            {/* <button className='submit-button' type='submit'>Submit</button> */}
                         </form>
                     </div>
                 ))}
             </div>
+        
         </div>
     );
 }

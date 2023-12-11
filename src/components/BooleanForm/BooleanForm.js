@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './BooleanForm.css';
 
-function BooleanForm() {
+function BooleanForm({ formData, setFormData }) {
   const dispatch = useDispatch();
   const surveyList = useSelector((store) => store.survey.surveyList);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -41,14 +41,23 @@ function BooleanForm() {
     addSurveyReply(selectedBoolean);
   };
 
+  useEffect(() => {
+    if (selectedQuestion) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [selectedQuestion.id]: score,
+      }));
+    }
+  }, [selectedQuestion, setFormData, score]);
+
   return (
     <div>
-      <h2
+      {/* <h2
         className='title'
         style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}
       >
         Response Yes or No
-      </h2>
+      </h2> */}
       <div>
         {surveyList.map((survey) => (
           <div
@@ -77,5 +86,3 @@ function BooleanForm() {
 }
 
 export default BooleanForm;
-
-

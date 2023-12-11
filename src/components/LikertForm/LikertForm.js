@@ -15,13 +15,13 @@ const selectedOptionStyle = {
   fontWeight: 'bold',
 };
 
-function LikertForm() {
+function LikertForm({ formData, setFormData }) {
   const dispatch = useDispatch();
   const likertList = useSelector((store) => store.likertReducer.likertList);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [replyBody, setReplyBody] = useState('');
   const [userId, setUserId] = useState(0);
-  const [currentScore, setCurrentScore] = useState({}); // State to store selected score for each question
+  const [currentScore, setCurrentScore] = useState({});
   const currentDate = dayjs();
   const likertFormRef = useRef(null);
 
@@ -40,9 +40,9 @@ function LikertForm() {
       dispatch({
           type: 'FETCH_REPLY_LIKERT',
           payload: {
-              response: currentScore[selectedQuestion.id].toString(), // Convert to string
+              response: currentScore[selectedQuestion.id].toString(),
               user_id: userId,
-              date: currentDate.format(), // Format date
+              date: currentDate.format(),
               question_id: selectedQuestion.id,
           },
       });
@@ -58,11 +58,20 @@ function LikertForm() {
     }
   };
 
+  useEffect(() => {
+    if (selectedQuestion) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [selectedQuestion.id]: currentScore[selectedQuestion.id],
+      }));
+    }
+  }, [currentScore, selectedQuestion, setFormData]);
+
   return (
     <div>
-      <h2 className='title' style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}>
+      {/* <h2 className='title' style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}>
         Response 1-5
-      </h2>
+      </h2> */}
       <div>
         {likertList.map((likert) => (
           <div
@@ -109,15 +118,12 @@ function LikertForm() {
                 >
                   5 Strongly Agree
                 </span>
-                <button type='submit'>Submit</button>
+                {/* <button type='submit'>Submit</button> */}
               </div>
             </form>
           </div>
         ))}
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+        
       </div>
     </div>
   );
