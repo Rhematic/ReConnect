@@ -13,6 +13,12 @@ Reconnect is a mental health and well being platform for families going through 
 
 ---
 
+## Meet The Team
+
+![the team](https://github.com/Rhematic/ReConnect/assets/111538729/a9d3fa4a-0aa0-4f7c-a605-09d59c143e91)
+
+---
+
 ## Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:
