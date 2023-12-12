@@ -1,12 +1,15 @@
+![reconnect header](https://github.com/Rhematic/ReConnect/assets/111538729/65fe148a-2687-4999-992b-e7bf422c8bd7)
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+<h3 align="center">RECONNECT</h3>
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
-
-## Use the Template for This Repository (Don't Clone)
-
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+  <p align="center">
+Reconnect is a mental health and well being platform for families going through divorce with children at the center. Reconnect offers separate accounts for parents and children including a custody calendar, journal, emption survey, access to therapy, peer connection, and resources. Reconnect is on a mission to build a future of happier children and more resilient families. 
+    <br />
+    <br />
+<a href="LINK GOES HERE" target="_blank"><strong>JOIN RECONNECT»</strong></a>
+    <br />
+    <br />
+    <a href="https://docs.google.com/document/d/101jtA3QJ7x5wuVp1GeXgvGrcZB8YwBn9OCv7VVni0n8/edit?usp=sharing" target="_blank">View Application Overview</a>
 
 
 ## Prerequisites
