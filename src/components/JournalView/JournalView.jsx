@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Select, MenuItem, InputLabel, FormControl, Divider } from '@mui/material';
 import axios from 'axios';
 import './JournalView.css';
+import { useSelector } from "react-redux";
 
 const JournalView = () => {
     const [entries, setEntries] = useState([]);
@@ -9,6 +10,7 @@ const JournalView = () => {
     const [selectedPromptId, setSelectedPromptId] = useState('');
     const [entryDate, setEntryDate] = useState(new Date().toISOString().split('T')[0]);
     const [editingEntryId, setEditingEntryId] = useState(null);
+    const user = useSelector((store) => store.user);
     const prompts = [
         { id: 1, detail: "What do I want to do to maintain the relationship with my parents?" },
         { id: 2, detail: "What is it about my parents that makes me proud?" },
@@ -67,7 +69,7 @@ const JournalView = () => {
     const saveEntry = () => {
         const entryData = {
             prompt_id: selectedPromptId,
-            user_id: 1,
+            user_id: user.id,
             date: entryDate,
             detail: currentEntry,
         };
