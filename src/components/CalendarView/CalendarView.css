@@ -59,26 +59,21 @@
  
     .event-display {
         display: flex;
-        align-items: center; /* Align items vertically in the center */
-        justify-content: space-between; /* Position event details and buttons on opposite ends */
-        background-color: #ebe9e9; /* Light grey background */
-        color: black; /* Theme color for text */
+        align-items: center; 
+        justify-content: space-between;
+        background-color: #ebe9e9; 
+        color: black; 
         padding: 10px;
         margin-bottom: 10px;
-        border-radius: 5px; /* Rounded corners for the event display boxes */
+        border-radius: 5px;
     }
     
-    .event-details {
-        flex-grow: 1; /* Allow the event details to take up more space */
-        font-weight: bold; /* Make event details text bold */
-        text-align: center; /* Center text */
-    }
     
-    /* Make buttons smaller */
+ 
     .btn {
-        padding: 6px 10px; /* Smaller padding */
-        font-size: 0.85rem; /* Smaller font size */
-        margin-left: 10px; /* Space between buttons and event details */
+        padding: 6px 10px; 
+        font-size: 0.85rem; 
+        margin-left: 10px; 
     }
     
 
@@ -106,6 +101,7 @@
 }
 
 .edit-delete-btn{
-    width: 70px;
+    width: 90px;
+    height: 30px;
     text-align: right;
 }
