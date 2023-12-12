@@ -20,3 +20,62 @@
   float: right;
   cursor: pointer;
 }
+
+.resources-layout {
+  width: 100%;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.resources-list{
+    width: 100%;
+    border-collapse: separate;
+    text-align: left;
+    margin-top: 15px;
+    border-spacing: 0 15px;
+}
+
+.resources-btn {
+  border-radius: 40px;
+  background-color: #ebe9e9;
+  border: none;
+  width: 100px;
+  margin-right: 10px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.admin-prompt-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1399A3;
+  color: white;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.admin-resources-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1399A3;
+  color: white;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.resources-title{
+  color: #12646a;
+  margin-top: 50px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.table-btns{
+ text-align: right;
+}

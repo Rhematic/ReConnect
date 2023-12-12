@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import "../AdminConsole.css";
 
 function AdminSearchView() {
   const dispatch = useDispatch();
@@ -76,24 +77,24 @@ function AdminSearchView() {
 
   return (
     <div className="container">
-      <p>Admin Search View</p>
-      <button onClick={handleViewJournal}>View Journals</button>
-      <button onClick={handleViewResponse}>View Responses</button>
-      <button onClick={() => history.push("/admin")}>Back to Admin Home</button>
-      <br />
+      <h2 className="admin-search-title">ADMIN SEARCH VIEW</h2>
+      <button className="button-style-search" onClick={() => history.push("/admin")}>Back to Admin Home</button>
+      <button className="button-style-search" onClick={handleViewJournal}>View Journals</button>
+      <button className="button-style-search" onClick={handleViewResponse}>View Responses</button>
       <input
+      className="search-by-name-style"
         type="text"
         placeholder="Search by name"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />
       {showJournal && (
-        <table>
+        <table className="admin-search-table">
           <thead>
             <tr>
               <th>Name</th>
               <th>Date</th>
-              <th>Content</th>
+              <th>Journal Responses</th>
             </tr>
           </thead>
           <tbody>
@@ -104,26 +105,27 @@ function AdminSearchView() {
                   .includes(searchInput.toLowerCase())
               )
               .map((item) => (
-                <tr key={item.id}>
+                <tr key={item.id} className="journal-tr">
                   <td>{item.first_name}</td>
                   <td>{new Date(item.created_at).toLocaleDateString()}</td>
                   <td>
-                    <button onClick={() => handleOpenDialog(item.detail)}>
-                      View Journal Response
+                    <button className="journal-btn" onClick={() => handleOpenDialog(item.detail)}>
+                      VIEW
                     </button>
                   </td>
                 </tr>
+               
               ))}
           </tbody>
         </table>
       )}
       {showResponse && (
-        <table>
+        <table className="admin-search-table">
           <thead>
             <tr>
               <th>Name</th>
               <th>Date</th>
-              <th>Content</th>
+              <th>Emotion Survey Responses</th>
             </tr>
           </thead>
           <tbody>
@@ -134,16 +136,16 @@ function AdminSearchView() {
                   .includes(searchInput.toLowerCase())
               )
               .map((item) => (
-                <tr key={item.id}>
+                <tr key={item.id} className="survey-tr">
                   <td>{item.first_name}</td>
                   <td>{new Date(item.created_at).toLocaleDateString()}</td>
                   <td>
-                    <button
+                    <button  className="survey-btn"
                       onClick={() =>
                         handleOpenResponseDialog(item.response, item.created_at)
                       }
                     >
-                      View Emotion Survey Response
+                      VIEW
                     </button>
                   </td>
                 </tr>

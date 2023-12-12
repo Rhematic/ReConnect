@@ -43,63 +43,73 @@ function AdminPrompts() {
 
   return (
     <div className="container">
-      <p>Admin Prompts</p>
-      <ul>
-        {prompt.map((prompt) => (
-          <li key={prompt.id}>
-            {prompt.detail} - {prompt.hidden ? "hidden" : "visible"}
-            <button onClick={() => openModal(prompt)}>Edit prompt</button>
-            <button
-              onClick={() => {
-                toggleVisibility(prompt.id);
-              }}
-            >
-              Toggle visibility
-            </button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => openModal()}>Add prompt</button>
-      <button onClick={() => history.push("/admin")}>Back to Admin Home</button>
+      <h2 className="prompt-title">ADMIN PROMPTS</h2>
+      <button className="admin-prompt-btn" onClick={() => history.push("/admin")}>Back to Admin Home</button>
+      <button className="admin-prompt-btn" onClick={() => openModal()}>Add prompt</button>
 
-      {isModalOpen && (
-        <div className="dialog">
-          <div className="dialog-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <form onSubmit={handleSave}>
-              <label>
-                Description:
-                <input
-                  type="text"
-                  value={currentPrompt.detail}
-                  onChange={(e) =>
-                    setcurrentPrompt({
-                      ...currentPrompt,
-                      detail: e.target.value,
-                    })
-                  }
-                />
-              </label>
-              <label>
-                Hidden?:
-                <input
-                  type="checkbox"
-                  checked={currentPrompt.hidden}
-                  onChange={(e) =>
-                    setcurrentPrompt({
-                      ...currentPrompt,
-                      hidden: e.target.checked,
-                    })
-                  }
-                />
-              </label>
-              <input type="submit" value="Save" />
-            </form>
+      <div className="prompts-layout">
+        <table className="prompts-list">
+          {prompt.map((prompt) => (
+            <>
+              <tr key={prompt.id}>
+                <td>{prompt.detail}</td>
+                <td>
+                  <div className="table-btns">
+                    <button className="prompt-btn" onClick={() => openModal(prompt)}>Edit</button>
+                    <button
+                      className="prompt-btn"
+                      onClick={() => {
+                        toggleVisibility(prompt.id);
+                      }}
+                    >
+                      {prompt.hidden ? "Show Question" : "Hide Question"}
+                    </button>
+                  </div>
+                </td>
+
+              </tr>
+            </>
+          ))}
+        </table>
+        {isModalOpen && (
+          <div className="dialog">
+            <div className="dialog-content">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <form onSubmit={handleSave}>
+                <label>
+                  Description:
+                  <input
+                    type="text"
+                    value={currentPrompt.detail}
+                    onChange={(e) =>
+                      setcurrentPrompt({
+                        ...currentPrompt,
+                        detail: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <label>
+                  Hidden?:
+                  <input
+                    type="checkbox"
+                    checked={currentPrompt.hidden}
+                    onChange={(e) =>
+                      setcurrentPrompt({
+                        ...currentPrompt,
+                        hidden: e.target.checked,
+                      })
+                    }
+                  />
+                </label>
+                <input type="submit" value="Save" />
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
