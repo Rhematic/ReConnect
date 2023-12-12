@@ -1,24 +1,24 @@
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-    display: none !important;
+    display: none;
 }
 
 .css-1hbyad5-MuiTypography-root {
-    display: none !important;
+    display: none;
 }
 
 .css-4pax7l-MuiPickersLayout-root{
-    justify-content: center !important;
-    padding: 0 !important;
+    justify-content: center;
+    padding: 0;
 }
 
 
 .css-15jcv2p-MuiPickersToolbar-content{
-    justify-content: center !important;
+    justify-content: center ;
     color: #12646a;
 }
 
 .css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
-    background-color: #12646a !important;
+    background-color: #12646a 
 }
 
 .css-i4bv87-MuiSvgIcon-root{
@@ -35,19 +35,72 @@
    padding-bottom: 60px;
 }
 
-.events-display{
-    padding-bottom: 10px;
-    width: 100%;
-    background-color: #ebe9e9;
-    color: black;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center; 
-    margin-bottom: 10px;
+.event-editing input[type="text"], 
+.event-editing input[type="date"], 
+.event-editing input[type="time"] {
+    width: 100%; /* Adjust width as needed */
+    padding: 8px; /* Adds some padding inside input fields */
+    margin-bottom: 5px; /* Adds space between input fields */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ccc; /* Light grey border */
 }
 
-.events-for-title{
+/* Center "Events for" content */
+.events-for-title {
+    text-align: center; /* Center the title text */
+    margin-top: 10px;
     font-size: large;
     font-weight: bold;
-    text-align: center;
+}
+
+
+    
+   
+ 
+    .event-display {
+        display: flex;
+        align-items: center; /* Align items vertically in the center */
+        justify-content: space-between; /* Position event details and buttons on opposite ends */
+        background-color: #ebe9e9; /* Light grey background */
+        color: #12646a; /* Theme color for text */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px; /* Rounded corners for the event display boxes */
+    }
+    
+    .event-details {
+        flex-grow: 1; /* Allow the event details to take up more space */
+        font-weight: bold; /* Make event details text bold */
+        text-align: center; /* Center text */
+    }
+    
+    /* Make buttons smaller */
+    .btn {
+        padding: 6px 10px; /* Smaller padding */
+        font-size: 0.85rem; /* Smaller font size */
+        margin-left: 10px; /* Space between buttons and event details */
+    }
+    
+
+    
+  
+
+
+
+.btn-primary {
+    background-color: #12646a; 
+    border-color: #12646a;
+}
+
+
+
+
+.btn-secondary {
+    background-color: #6c757d; 
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
 }

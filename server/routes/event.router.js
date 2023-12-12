@@ -62,4 +62,36 @@ router.post("/", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const eventId = req.params.id;
+  const { date, detail, time } = req.body;
+  const queryText = `
+      UPDATE event 
+      SET date = $1, detail = $2, time = $3 
+      WHERE id = $4;
+  `;
+
+  pool
+    .query(queryText, [date, detail, time, eventId])
+    .then(() => res.sendStatus(200))
+    .catch((error) => {
+      console.log("error in event router PUT", error);
+      res.sendStatus(500);
+    });
+});
+
+// DELETE route for removing an event
+router.delete("/:id", (req, res) => {
+  const eventId = req.params.id;
+  const queryText = 'DELETE FROM event WHERE id = $1;';
+
+  pool
+    .query(queryText, [eventId])
+    .then(() => res.sendStatus(204))
+    .catch((error) => {
+      console.log("error in event router DELETE", error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
