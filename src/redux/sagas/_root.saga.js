@@ -28,6 +28,7 @@ export default function* rootSaga() {
     surveySaga(),
     familySaga(),
     eventSaga(),
+    resourceSaga(),
     questionSaga(),
     responseSaga(),
     promptSaga(),

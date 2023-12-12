@@ -1,131 +1,106 @@
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-    display: none !important;
+    display: none;
 }
 
 .css-1hbyad5-MuiTypography-root {
-    display: none !important;
+    display: none;
 }
 
 .css-4pax7l-MuiPickersLayout-root{
-    justify-content: center !important;
-    padding: 0 !important;
+    justify-content: center;
+    padding: 0;
 }
 
+
 .css-15jcv2p-MuiPickersToolbar-content{
-    justify-content: center !important;
+    justify-content: center ;
     color: #12646a;
 }
 
 .css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
-    background-color: #12646a !important;
+    background-color: #12646a 
 }
 
 .css-i4bv87-MuiSvgIcon-root{
     color: #EFCD3E;
 }
 
-.add-event { 
+.add-event{ 
   margin-top: 5px;
 }
 
-.calendar-page {
+.calendar-page{
    padding-right: 30px; 
    padding-left: 30px;
    padding-bottom: 60px;
 }
 
-.events-display {
-    padding-bottom: 10px;
-    width: 100%;
-    background-color: #ebe9e9;
-    color: black;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center; 
-    margin-bottom: 10px;
+.event-editing input[type="text"], 
+.event-editing input[type="date"], 
+.event-editing input[type="time"] {
+    width: 100%; /* Adjust width as needed */
+    padding: 8px; /* Adds some padding inside input fields */
+    margin-bottom: 5px; /* Adds space between input fields */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ccc; /* Light grey border */
 }
 
-/* New styles for 'Events for' section */
+/* Center "Events for" content */
 .events-for-title {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    color: #12646a;
-}
-.events-for-title {
+    text-align: center; /* Center the title text */
+    margin-top: 10px;
     font-size: large;
     font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    color: #12646a;
-}
-
-.event-container {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.event-detail {
-    color: #333;
-    font-size: 16px;
-}
-
-.event-time {
-    color: #555;
-    font-style: italic;
 }
 
 
-.edit-button, .delete-button {
-    background-color: #12646a;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin-right: 10px;
+    
+   
+ 
+    .event-display {
+        display: flex;
+        align-items: center; /* Align items vertically in the center */
+        justify-content: space-between; /* Position event details and buttons on opposite ends */
+        background-color: #ebe9e9; /* Light grey background */
+        color: #12646a; /* Theme color for text */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px; /* Rounded corners for the event display boxes */
+    }
+    
+    .event-details {
+        flex-grow: 1; /* Allow the event details to take up more space */
+        font-weight: bold; /* Make event details text bold */
+        text-align: center; /* Center text */
+    }
+    
+    /* Make buttons smaller */
+    .btn {
+        padding: 6px 10px; /* Smaller padding */
+        font-size: 0.85rem; /* Smaller font size */
+        margin-left: 10px; /* Space between buttons and event details */
+    }
+    
+
+    
+  
+
+
+
+.btn-primary {
+    background-color: #12646a; 
+    border-color: #12646a;
 }
 
-.edit-button:hover, .delete-button:hover {
-    background-color: #104955;
+
+
+
+.btn-secondary {
+    background-color: #6c757d; 
+    border-color: #6c757d;
 }
 
-.dialog-title {
-    font-size: 22px;
-    font-weight: bold;
-    color: #12646a;
-}
-
-.dialog-content {
-    min-height: 200px; 
-    font-size: 16px;
-}
-
-.dialog-actions {
-    padding: 15px;
-    justify-content: center;
-}
-
-
-.button {
-    background-color: #1399a3;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    display: inline-block;
-    margin: 10px;
-    text-decoration: none;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: #10777a;
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
 }

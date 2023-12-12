@@ -4,6 +4,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import React, { useState, useEffect } from 'react';
 
+// Extend dayjs with utc and timezone plugins
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -23,10 +24,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button } from "@mui/material";
-import { TextField } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, TextField } from "@mui/material";
 
 // Custom Day component with Badge
 function CustomDay(props) {
@@ -60,7 +58,7 @@ function CalanderView() {
   const handleClickOpen = () => { setOpen(true); };
   const handleClose = () => { setOpen(false); };
 
-// Fetch events from the Redux store on component mount
+  // Fetch events from the Redux store on component mount
   useEffect(() => {
     dispatch({ type: "FETCH_EVENT" });
     console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
@@ -97,6 +95,14 @@ function CalanderView() {
 
   const handleDelete = (eventId) => {
     dispatch({ type: 'DELETE_EVENT', payload: eventId });
+  
+    // Update the local state to reflect the deletion
+    const updatedEvents = events.filter(event => event.id !== eventId);
+    setSortedEvents(updatedEvents);
+  
+    // Also update selectedEvents if the deleted event is in the current view
+    const updatedSelectedEvents = selectedEvents.filter(event => event.id !== eventId);
+    setSelectedEvents(updatedSelectedEvents);
   };
 
   const saveEdit = () => {
@@ -109,26 +115,70 @@ function CalanderView() {
     setEditableEvent(prev => ({ ...prev, [name]: value }));
   };
 
+  const formatTime = (timeString) => {
+    return dayjs(timeString).format('h:mm A'); // Format to, e.g., "3:00 PM"
+};
+
+  // Function to render each event with edit and delete options
+// Function to render each event with edit and delete options
+const renderEvent = (event) => {
+  if (editEventId === event.id) {
+      return (
+          <div className="event-editing">
+              <input 
+                  type="text" 
+                  name="detail" 
+                  value={editableEvent.detail} 
+                  onChange={handleInputChange}
+                  placeholder="Event Detail"
+              />
+              <input 
+                  type="date" 
+                  name="date" 
+                  value={formatDate(editableEvent.date)} 
+                  onChange={handleInputChange}
+              />
+              <input 
+                  type="time" 
+                  name="time" 
+                  value={editableEvent.time} 
+                  onChange={handleInputChange}
+              />
+              <button className="btn btn-primary" onClick={saveEdit}>Save</button>
+              <button className="btn btn-secondary" onClick={() => setEditEventId(null)}>Cancel</button>
+          </div>
+      );
+  }        return (
+    <div className="event-display">
+        <span className="event-details">{event.detail} - {formatTime(event.time)}</span>
+        <div>
+            <button className="btn btn-primary" onClick={() => handleEdit(event)}>Edit</button>
+            <button className="btn btn-danger" onClick={() => handleDelete(event.id)}>Delete</button>
+        </div>
+    </div>
+);
+};
+
   return (
     <div className="calendar-page">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <StaticDatePicker
-  orientation="portrait"
-  value={selectedDate}
-  onChange={handleDateChange}
-  onMonthChange={handleDateChange}
-  slots={{ day: CustomDay }}
-  slotProps={{
-    day: {
-      // Only include days in highlightedDays that have an event
-      highlightedDays: events
-        .filter(event => 
-          dayjs(event.date).isSame(dayjs(selectedDate), "month") &&
-          dayjs(event.date).isSame(dayjs(selectedDate), "year"))
-        .map(event => dayjs(event.date).date())
-    },
-  }}
-/>
+        <StaticDatePicker
+          orientation="portrait"
+          value={selectedDate}
+          onChange={handleDateChange}
+          onMonthChange={handleDateChange}
+          ToolbarComponent={() => null}
+          slots={{ day: CustomDay }}
+          slotProps={{
+            day: {
+              highlightedDays: events
+                .filter(event => 
+                  dayjs(event.date).isSame(dayjs(selectedDate), "month") &&
+                  dayjs(event.date).isSame(dayjs(selectedDate), "year"))
+                .map(event => dayjs(event.date).date())
+            },
+          }}
+        />
 
         <Button fullWidth sx={{ backgroundColor: '#1399a3', color: "white", textAlign: 'center', marginBottom: '10px', borderRadius: '15px' }} variant="contained" onClick={handleClickOpen}>
           View All Events
@@ -138,50 +188,29 @@ function CalanderView() {
           <TextField fullWidth type="text" id="detail" label="Event Details" variant="outlined" />
           <div>
             <TextField type="time" id="time" sx={{ paddingTop: "10px" }} variant="outlined" />
-            <Button sx={{ height: '55px', marginTop: "10px", marginLeft: "10px", backgroundColor: '#1399a3', color: "white" }} variant="contained" onClick={() => dispatch({ type: "POST_EVENT", payload: { date: selectedDate.format("MM/DD/YYYY"), detail: document.getElementById("detail").value, time: document.getElementById("time").value } })}> ADD </Button>
+            <Button 
+    sx={{ height: '55px', marginTop: "10px", marginLeft: "10px", backgroundColor: '#1399a3', color: "white" }} 
+    variant="contained" 
+    onClick={() => {
+        dispatch({ 
+            type: "POST_EVENT", 
+            payload: { 
+                date: selectedDate.format("MM/DD/YYYY"), 
+                detail: document.getElementById("detail").value, 
+                time: document.getElementById("time").value 
+            }
+        });
+        // Reset the input fields after adding the event
+        document.getElementById("detail").value = '';
+        document.getElementById("time").value = '';
+    }}
+> ADD </Button>
           </div>
         </div>
 
-        <div>
-          {events.map(event => (
-            <div key={event.id}>
-              {editEventId === event.id ? (
-                <div>
-                  <input name="detail" value={editableEvent.detail} onChange={handleInputChange} />
-                  <input type="date" name="date" value={formatDate(editableEvent.date)} onChange={handleInputChange} />
-                  <input type="time" name="time" value={editableEvent.time} onChange={handleInputChange} />
-                  <button onClick={saveEdit}>Save</button>
-                  <button onClick={() => setEditEventId(null)}>Cancel</button>
-                </div>
-              ) : (
-                <div>
-                  <span>{event.detail} - {formatDate(event.date)}</span>
-                  <button onClick={() => handleEdit(event)}>Edit</button>
-                  <button onClick={() => handleDelete(event.id)}>Delete</button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* <p className="events-for-title">Events for {formatDate(selectedDate)}:</p>
-        {selectedEvents.length === 0 ? <p className="events-display">No events</p> : selectedEvents.map((event, index) => (
-          <div className="events-display" key={index}>
-            {event.detail} @ {dayjs(event.time).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('h:mm A')}
-          </div>
-        ))} */}
 
         <p className="events-for-title">Events for {formatDate(selectedDate)}:</p>
-{selectedEvents.length === 0 ? <p className="events-display">No events</p> : selectedEvents.map((event, index) => (
-  <div className="event-container" key={index}>
-    <span className="event-detail">{event.detail}</span>
-    <span className="event-time"> @ {dayjs(event.time).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('h:mm A')}</span>
-    <div className="edit-delete-buttons">
-      <button className="edit-button" onClick={() => handleEdit(event)}>Edit</button>
-      <button className="delete-button" onClick={() => handleDelete(event.id)}>Delete</button>
-    </div>
-  </div>
-))}
+        {selectedEvents.length === 0 ? <p className="events-display">No events</p> : selectedEvents.map(event => <div key={event.id}>{renderEvent(event)}</div>)}
 
         <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
           <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
