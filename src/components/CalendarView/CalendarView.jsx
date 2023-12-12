@@ -25,6 +25,8 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Button, TextField } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 // Custom Day component with Badge
 function CustomDay(props) {
@@ -151,9 +153,9 @@ const renderEvent = (event) => {
   }        return (
     <div className="event-display">
         <span className="event-details">{event.detail} - {formatTime(event.time)}</span>
-        <div>
-            <button className="btn btn-primary" onClick={() => handleEdit(event)}>Edit</button>
-            <button className="btn btn-danger" onClick={() => handleDelete(event.id)}>Delete</button>
+        <div className="edit-delete-btn">
+            <EditIcon onClick={() => handleDelete(event)} sx={{color: "black",}}/>
+            <DeleteIcon onClick={() => handleDelete(event.id)} sx={{color: "black",}}/>
         </div>
     </div>
 );
