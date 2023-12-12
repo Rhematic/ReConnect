@@ -62,7 +62,7 @@
         align-items: center; /* Align items vertically in the center */
         justify-content: space-between; /* Position event details and buttons on opposite ends */
         background-color: #ebe9e9; /* Light grey background */
-        color: #12646a; /* Theme color for text */
+        color: black; /* Theme color for text */
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px; /* Rounded corners for the event display boxes */
@@ -103,4 +103,9 @@
 .btn-secondary:hover {
     background-color: #5a6268;
     border-color: #545b62;
+}
+
+.edit-delete-btn{
+    width: 70px;
+    text-align: right;
 }
