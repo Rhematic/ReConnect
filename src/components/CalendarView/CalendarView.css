@@ -11,7 +11,6 @@
     padding: 0 !important;
 }
 
-
 .css-15jcv2p-MuiPickersToolbar-content{
     justify-content: center !important;
     color: #12646a;
@@ -25,17 +24,17 @@
     color: #EFCD3E;
 }
 
-.add-event{ 
+.add-event { 
   margin-top: 5px;
 }
 
-.calendar-page{
+.calendar-page {
    padding-right: 30px; 
    padding-left: 30px;
    padding-bottom: 60px;
 }
 
-.events-display{
+.events-display {
     padding-bottom: 10px;
     width: 100%;
     background-color: #ebe9e9;
@@ -46,8 +45,87 @@
     margin-bottom: 10px;
 }
 
-.events-for-title{
+/* New styles for 'Events for' section */
+.events-for-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    color: #12646a;
+}
+.events-for-title {
     font-size: large;
     font-weight: bold;
     text-align: center;
+    margin-top: 20px;
+    color: #12646a;
+}
+
+.event-container {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.event-detail {
+    color: #333;
+    font-size: 16px;
+}
+
+.event-time {
+    color: #555;
+    font-style: italic;
+}
+
+
+.edit-button, .delete-button {
+    background-color: #12646a;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #104955;
+}
+
+.dialog-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #12646a;
+}
+
+.dialog-content {
+    min-height: 200px; 
+    font-size: 16px;
+}
+
+.dialog-actions {
+    padding: 15px;
+    justify-content: center;
+}
+
+
+.button {
+    background-color: #1399a3;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    margin: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #10777a;
 }
