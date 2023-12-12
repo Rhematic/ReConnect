@@ -138,14 +138,14 @@ function LabelBottomNavigation() {
                           component={Link}
                           to="/resources"
                       />
-                      <BottomNavigationAction
+                      {/* <BottomNavigationAction
                           label="Journal"
                           value="Journal"
                           icon={<NoteAltIcon sx={{ color: 'white' }} />}
                           style={{ color: 'white' }}
                           component={Link}
                           to="/journal"
-                      />
+                      /> */}
                        <BottomNavigationAction
                           label="Survey"
                           value="Survey"

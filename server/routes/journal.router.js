@@ -3,22 +3,46 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  const queryText = `
+
+  if (req.user.access_level === 'admin') {
+    //Get all journals
+    queryText = `
     SELECT "journal".*, "user"."first_name" 
     FROM "journal" 
     JOIN "user" ON "journal"."user_id" = "user"."id" 
     ORDER BY "journal"."id" ASC
   `;
 
-  pool
-    .query(queryText)
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log("error in journal router GET", error);
-      res.sendStatus(500);
-    });
+    pool
+      .query(queryText)
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log("error in journal router GET", error);
+        res.sendStatus(500);
+      });
+  } else {
+
+    //Get Journals by userId
+    let queryText = `
+    SELECT "journal".*, "user"."first_name" 
+    FROM "journal" 
+    JOIN "user" ON "journal"."user_id" = "user"."id" 
+    WHERE "journal"."user_id" = $1
+    ORDER BY "journal"."id" ASC
+  `;
+
+    pool
+      .query(queryText, [req.user.id])
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log("error in journal router GET", error);
+        res.sendStatus(500);
+      });
+  }
 });
 
 // POST route to create a new journal entry
