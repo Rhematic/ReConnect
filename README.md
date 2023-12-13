@@ -10,8 +10,8 @@ Reconnect is a mental health and well being platform for families going through 
     <br />
     <br />
     <a href="https://docs.google.com/document/d/101jtA3QJ7x5wuVp1GeXgvGrcZB8YwBn9OCv7VVni0n8/edit?usp=sharing" target="_blank">View Application Overview</a>
-
----
+    <br />
+    <a href="https://docs.google.com/document/d/101jtA3QJ7x5wuVp1GeXgvGrcZB8YwBn9OCv7VVni0n8/edit?usp=sharing" target="_blank">Application Features and Bug Fixes</a>
 
 ## Meet The Team
 
