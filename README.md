@@ -52,7 +52,7 @@ Create a new database called `reconnect` and create a `user` table:
 
 ---
 
-![reconnect](https://github.com/Rhematic/ReConnect/assets/111538729/b854c59b-604a-49db-9593-d44a4d07add7)
+![reconnectgif](https://github.com/Rhematic/ReConnect/assets/111538729/dfc674de-119a-4f60-ab43-220709a20001)
 
 ---
 
