@@ -6,84 +6,80 @@
     display: none;
 }
 
-.css-4pax7l-MuiPickersLayout-root{
+.css-4pax7l-MuiPickersLayout-root {
     justify-content: center;
     padding: 0;
 }
 
 
-.css-15jcv2p-MuiPickersToolbar-content{
-    justify-content: center ;
+.css-15jcv2p-MuiPickersToolbar-content {
+    justify-content: center;
     color: #12646a;
 }
 
-.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
-    background-color: #12646a 
+.css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    background-color: #12646a
 }
 
-.css-i4bv87-MuiSvgIcon-root{
+.css-i4bv87-MuiSvgIcon-root {
     color: #EFCD3E;
 }
 
-.add-event{ 
-  margin-top: 5px;
+.add-event {
+    margin-top: 5px;
 }
 
-.calendar-page{
-   padding-right: 30px; 
-   padding-left: 30px;
-   padding-bottom: 60px;
+.calendar-page {
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 60px;
 }
 
-.event-editing input[type="text"], 
-.event-editing input[type="date"], 
+.event-editing input[type="text"],
+.event-editing input[type="date"],
 .event-editing input[type="time"] {
-    width: 100%; /* Adjust width as needed */
-    padding: 8px; /* Adds some padding inside input fields */
-    margin-bottom: 5px; /* Adds space between input fields */
-    border-radius: 4px; /* Rounded corners */
-    border: 1px solid #ccc; /* Light grey border */
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
-/* Center "Events for" content */
 .events-for-title {
-    text-align: center; /* Center the title text */
+    text-align: center;
     margin-top: 10px;
     font-size: large;
     font-weight: bold;
 }
 
 
-    
-   
- 
-    .event-display {
-        display: flex;
-        align-items: center; 
-        justify-content: space-between;
-        background-color: #ebe9e9; 
-        color: black; 
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-    }
-    
-    
- 
-    .btn {
-        padding: 6px 10px; 
-        font-size: 0.85rem; 
-        margin-left: 10px; 
-    }
-    
+.event-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ebe9e9;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
 
-    
-  
+
+
+.btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}
+
+
+
+
 
 
 
 .btn-primary {
-    background-color: #12646a; 
+    background-color: #12646a;
     border-color: #12646a;
 }
 
@@ -91,7 +87,7 @@
 
 
 .btn-secondary {
-    background-color: #6c757d; 
+    background-color: #6c757d;
     border-color: #6c757d;
 }
 
@@ -100,7 +96,7 @@
     border-color: #545b62;
 }
 
-.edit-delete-btn{
+.edit-delete-btn {
     width: 90px;
     height: 30px;
     text-align: right;
