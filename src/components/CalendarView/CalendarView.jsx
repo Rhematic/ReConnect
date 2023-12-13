@@ -60,18 +60,37 @@ function CalanderView() {
   const handleClickOpen = () => { setOpen(true); };
   const handleClose = () => { setOpen(false); };
 
-  // Fetch events from the Redux store on component mount
-  useEffect(() => {
-    dispatch({ type: "FETCH_EVENT" });
-    console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
-  }, [dispatch]);
-
+  const user = useSelector((store) => store.user);
   const events = useSelector((store) => store.event);
+  const families = useSelector((store) => store.family);
+  const [userFamily, setUserFamily] = useState({});
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [sortedEvents, setSortedEvents] = useState([]);
   const [editEventId, setEditEventId] = useState(null);
   const [editableEvent, setEditableEvent] = useState({ detail: '', date: '', time: '' });
+
+  // Fetch events from the Redux store on component mount
+  useEffect(() => {
+    dispatch({ type: "FETCH_FAMILY" });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if(families.length > 0){
+      const family = [...families].find((family) => family.user_id === user.id);
+      setUserFamily(family);
+      dispatch({ type: "FETCH_EVENT", payload: { familyId: family.family_id } });
+    }
+   
+  }, [families]);
+
+  useEffect(() => {
+    if (events.length > 0) {
+      handleDateChange(selectedDate);
+      setSortedEvents([...events].sort((a, b) => new Date(a.date) - new Date(b.date)));
+    }
+  }, [selectedDate, events, families]);
+
 
   const handleDateChange = (newValue) => {
     setSelectedDate(newValue);
@@ -83,12 +102,6 @@ function CalanderView() {
     return dayjs(dateString).format('MM/DD/YYYY');
   }
 
-  useEffect(() => {
-    if (events.length > 0) {
-      handleDateChange(selectedDate);
-      setSortedEvents([...events].sort((a, b) => new Date(a.date) - new Date(b.date)));
-    }
-  }, [selectedDate, events]);
 
   const handleEdit = (event) => {
     setEditEventId(event.id);
@@ -97,12 +110,11 @@ function CalanderView() {
 
   const handleDelete = (eventId) => {
     dispatch({ type: 'DELETE_EVENT', payload: eventId });
-  
-    // Update the local state to reflect the deletion
+
+    
     const updatedEvents = events.filter(event => event.id !== eventId);
     setSortedEvents(updatedEvents);
-  
-    // Also update selectedEvents if the deleted event is in the current view
+
     const updatedSelectedEvents = selectedEvents.filter(event => event.id !== eventId);
     setSelectedEvents(updatedSelectedEvents);
   };
@@ -119,47 +131,47 @@ function CalanderView() {
 
   const formatTime = (timeString) => {
     return dayjs(timeString).format('h:mm A'); // Format to, e.g., "3:00 PM"
-};
+  };
 
   // Function to render each event with edit and delete options
-// Function to render each event with edit and delete options
-const renderEvent = (event) => {
-  if (editEventId === event.id) {
+  // Function to render each event with edit and delete options
+  const renderEvent = (event) => {
+    if (editEventId === event.id) {
       return (
-          <div className="event-editing">
-              <input 
-                  type="text" 
-                  name="detail" 
-                  value={editableEvent.detail} 
-                  onChange={handleInputChange}
-                  placeholder="Event Detail"
-              />
-              <input 
-                  type="date" 
-                  name="date" 
-                  value={formatDate(editableEvent.date)} 
-                  onChange={handleInputChange}
-              />
-              <input 
-                  type="time" 
-                  name="time" 
-                  value={editableEvent.time} 
-                  onChange={handleInputChange}
-              />
-              <button className="btn btn-primary" onClick={saveEdit}>Save</button>
-              <button className="btn btn-secondary" onClick={() => setEditEventId(null)}>Cancel</button>
-          </div>
+        <div className="event-editing">
+          <input
+            type="text"
+            name="detail"
+            value={editableEvent.detail}
+            onChange={handleInputChange}
+            placeholder="Event Detail"
+          />
+          <input
+            type="date"
+            name="date"
+            value={formatDate(editableEvent.date)}
+            onChange={handleInputChange}
+          />
+          <input
+            type="time"
+            name="time"
+            value={editableEvent.time}
+            onChange={handleInputChange}
+          />
+          <button className="btn btn-primary" onClick={saveEdit}>Save</button>
+          <button className="btn btn-secondary" onClick={() => setEditEventId(null)}>Cancel</button>
+        </div>
       );
-  }        return (
-    <div className="event-display">
+    } return (
+      <div className="event-display">
         <span className="event-details">{event.detail} - {formatTime(event.time)}</span>
         <div className="edit-delete-btn">
-            <EditIcon onClick={() => handleDelete(event)} sx={{color: "black",}}/>
-            <DeleteIcon onClick={() => handleDelete(event.id)} sx={{color: "black",}}/>
+          <EditIcon onClick={() => handleDelete(event)} sx={{ color: "black", }} />
+          <DeleteIcon onClick={() => handleDelete(event.id)} sx={{ color: "black", }} />
         </div>
-    </div>
-);
-};
+      </div>
+    );
+  };
 
   return (
     <div className="calendar-page">
@@ -174,7 +186,7 @@ const renderEvent = (event) => {
           slotProps={{
             day: {
               highlightedDays: events
-                .filter(event => 
+                .filter(event =>
                   dayjs(event.date).isSame(dayjs(selectedDate), "month") &&
                   dayjs(event.date).isSame(dayjs(selectedDate), "year"))
                 .map(event => dayjs(event.date).date())
@@ -190,23 +202,23 @@ const renderEvent = (event) => {
           <TextField fullWidth type="text" id="detail" label="Event Details" variant="outlined" />
           <div>
             <TextField type="time" id="time" sx={{ paddingTop: "10px" }} variant="outlined" />
-            <Button 
-    sx={{ height: '55px', marginTop: "10px", marginLeft: "10px", backgroundColor: '#1399a3', color: "white" }} 
-    variant="contained" 
-    onClick={() => {
-        dispatch({ 
-            type: "POST_EVENT", 
-            payload: { 
-                date: selectedDate.format("MM/DD/YYYY"), 
-                detail: document.getElementById("detail").value, 
-                time: document.getElementById("time").value 
-            }
-        });
-        // Reset the input fields after adding the event
-        document.getElementById("detail").value = '';
-        document.getElementById("time").value = '';
-    }}
-> ADD </Button>
+            <Button
+              sx={{ height: '55px', marginTop: "10px", marginLeft: "10px", backgroundColor: '#1399a3', color: "white" }}
+              variant="contained"
+              onClick={() => {
+                dispatch({
+                  type: "POST_EVENT",
+                  payload: {
+                    date: selectedDate.format("MM/DD/YYYY"),
+                    detail: document.getElementById("detail").value,
+                    time: document.getElementById("time").value
+                  }
+                });
+                // Reset the input fields after adding the event
+                document.getElementById("detail").value = '';
+                document.getElementById("time").value = '';
+              }}
+            > ADD </Button>
           </div>
         </div>
 
