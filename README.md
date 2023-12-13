@@ -50,11 +50,16 @@ Create a new database called `reconnect` and create a `user` table:
 - Run `npm run client`
 - Navigate to `localhost:3000`
 
+---
+
+![reconnect](https://github.com/Rhematic/ReConnect/assets/111538729/b854c59b-604a-49db-9593-d44a4d07add7)
 
 ---
+
 # Built with
 
 ![technologies](https://github.com/Rhematic/ReConnect/assets/111538729/1f188bae-6f4c-4e5d-9e63-1aa2d02479f7)
+
 
 ---
 
