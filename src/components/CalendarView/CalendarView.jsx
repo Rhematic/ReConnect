@@ -76,12 +76,12 @@ function CalanderView() {
   }, [dispatch]);
 
   useEffect(() => {
-    if(families.length > 0){
+    if (families.length > 0) {
       const family = [...families].find((family) => family.user_id === user.id);
       setUserFamily(family);
       dispatch({ type: "FETCH_EVENT", payload: { familyId: family.family_id } });
     }
-   
+
   }, [families]);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ function CalanderView() {
   const handleDelete = (eventId) => {
     dispatch({ type: 'DELETE_EVENT', payload: eventId });
 
-    
+
     const updatedEvents = events.filter(event => event.id !== eventId);
     setSortedEvents(updatedEvents);
 
@@ -130,7 +130,7 @@ function CalanderView() {
   };
 
   const formatTime = (timeString) => {
-    return dayjs(timeString).format('h:mm A'); // Format to, e.g., "3:00 PM"
+    return dayjs(timeString).format('h:mm A'); // Format to "3:00 PM"
   };
 
   // Function to render each event with edit and delete options

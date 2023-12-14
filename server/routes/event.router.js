@@ -27,17 +27,16 @@ router.get("/:familyId", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log(req.user.id, req.body.date, req.body.detail, req.body.time);
+
 
   const date = new Date(req.body.date);
   const timeParts = req.body.time.split(":");
   date.setUTCHours(timeParts[0], timeParts[1]);
-  
+
   // Convert the date to a UTC timestamp
   const utcTimestamp = date.toISOString();
-  
+
   // Output the UTC timestamp
-  console.log('UTC Timestamp:', utcTimestamp);
   const queryText = `
       WITH user_family AS (
         SELECT family_id 
