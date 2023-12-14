@@ -2,11 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET free form type question
- */
+
 router.get('/', (req, res) => {
-    console.log('/survey GET route');
     let queryText = `SELECT * from "question" WHERE "hidden" = false AND "type" = 'short' ORDER BY "id" ASC`;
     pool.query(queryText).then((result) => {
         res.send(result.rows);
@@ -16,10 +13,7 @@ router.get('/', (req, res) => {
     })
 });
 
-// likertsurvey.router.js
-
 router.post('/', (req, res) => {
-    console.log('/survey POST route');
     console.log(req.body);
     console.log('is authenticated?', req.isAuthenticated());
 
@@ -28,7 +22,6 @@ router.post('/', (req, res) => {
 
         const responses = req.body.response;
 
-        // Iterate through each question in the response
         for (const questionId in responses) {
             const queryText = `
                 INSERT INTO "response" ("response", "user_id", "date", "question_id")
@@ -52,7 +45,7 @@ router.post('/', (req, res) => {
                 });
         }
 
-        res.sendStatus(201); // Respond after all responses are inserted
+        res.sendStatus(201);
     } else {
         res.sendStatus(401);
     }
@@ -60,29 +53,3 @@ router.post('/', (req, res) => {
 
 
 module.exports = router;
-
-// router.get('/', (req, res) => {
-//     console.log('/survey GET route');
-//     console.log('is authenticated?', req.isAuthenticated());
-//     console.log('user', req.user);
-//     if(req.isAuthenticated()) {
-//       let queryText = `SELECT * FROM "question" WHERE "user_id" = $1 ORDER BY id;`;
-//       pool.query(queryText, [req.user.id]).then((result) => {
-//           res.send(result.rows);
-//       }).catch((error) => {
-//           console.log(error);
-//           res.sendStatus(500);
-//       });
-//     } else {
-//       res.sendStatus(401);
-//     }
-//   });
-
-/**
- * POST route template
- */
-// router.post('/', (req, res) => {
-//   // POST route code here
-// });
-
-

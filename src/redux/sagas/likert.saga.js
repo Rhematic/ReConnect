@@ -1,4 +1,3 @@
-// likert.saga.js
 import axios from 'axios';
 import { put, takeLatest, call } from 'redux-saga/effects';
 
@@ -22,8 +21,6 @@ function* addLikertReply(action) {
       date: action.payload.date,
     });
     yield put({ type: 'SET_REPLY_LIKERT', payload: likertReply.data });
-
-    // yield put({ type: 'SUBMIT_ALL_FORMS_SUCCESS', payload: likertReply.data });
   } catch (error) {
     console.log('ERROR in addLikertReply', error);
     alert('Something went wrong!');

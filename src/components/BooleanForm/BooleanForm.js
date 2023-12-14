@@ -52,12 +52,6 @@ function BooleanForm({ formData, setFormData }) {
 
   return (
     <div>
-      {/* <h2
-        className='title'
-        style={{ padding: '10px', margin: '10px', borderRadius: '10px', border: '2px solid gray' }}
-      >
-        Response Yes or No
-      </h2> */}
       <div>
         {surveyList.map((survey) => (
           <div

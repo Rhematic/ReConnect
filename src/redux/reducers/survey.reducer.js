@@ -1,4 +1,3 @@
-// survey.reducer.js
 import { combineReducers } from 'redux';
 
 const surveyList = (state = [], action) => {
