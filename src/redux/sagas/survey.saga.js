@@ -1,4 +1,3 @@
-// survey.saga.js
 import axios from 'axios';
 import { put, takeLatest, all, call, select } from 'redux-saga/effects';
 import dayjs from 'dayjs';
@@ -16,16 +15,14 @@ function* getSurveyList() {
 function* submitLikertForm(action) {
   try {
     const { likertFormData } = action.payload;
-    const userId = yield select(state => state.user.id); // Assuming you store user details in the Redux store
-    const currentDate = dayjs().format(); // Format the date before sending
+    const userId = yield select(state => state.user.id);
+    const currentDate = dayjs().format();
 
     yield axios.post('/api/likert', {
       response: likertFormData,
       user_id: userId,
       date: currentDate,
     });
-
-    // No specific success action
   } catch (error) {
     console.log('ERROR in submitLikertForm', error);
     alert('Failed to submit likert form!');
@@ -35,16 +32,14 @@ function* submitLikertForm(action) {
 function* submitFreeForm(action) {
   try {
     const { freeFormData } = action.payload;
-    const userId = yield select(state => state.user.id); // Assuming you store user details in the Redux store
-    const currentDate = dayjs().format(); // Format the date before sending
+    const userId = yield select(state => state.user.id);
+    const currentDate = dayjs().format();
 
     yield axios.post('/api/freeform', {
       response: freeFormData,
       user_id: userId,
       date: currentDate,
     });
-
-    // No specific success action
   } catch (error) {
     console.log('ERROR in submitFreeForm', error);
     alert('Failed to submit freeform!');
@@ -59,14 +54,11 @@ function* submitAllForms(action) {
       call(submitLikertForm, { payload: { likertFormData } }),
       call(submitFreeForm, { payload: { freeFormData } }),
     ]);
-
-    // No specific success action for all forms
   } catch (error) {
     console.log('ERROR in submitAllForms', error);
     alert('Failed to submit all forms!');
   }
 }
-
 
 function* surveySaga() {
   yield takeLatest('FETCH_SURVEY', getSurveyList);

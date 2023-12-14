@@ -2,12 +2,8 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-/**
- * GET boolean type question
- */
 
 router.get('/', (req, res) => {
-    console.log('/survey GET route');
     let queryText = `SELECT * from "question" WHERE "hidden" = false AND "type" = 'multi' ORDER BY "id" ASC`;
     pool.query(queryText).then((result) => {
         res.send(result.rows);
@@ -22,7 +18,6 @@ router.get('/', (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log("/survey POST route");
   console.log(req.body);
   console.log("is authenticated?", req.isAuthenticated());
 
@@ -53,29 +48,5 @@ router.post("/", (req, res) => {
     res.sendStatus(401);
   }
 });
-
-// router.get('/', (req, res) => {
-//     console.log('/survey GET route');
-//     console.log('is authenticated?', req.isAuthenticated());
-//     console.log('user', req.user);
-//     if(req.isAuthenticated()) {
-//       let queryText = `SELECT * FROM "question" WHERE "user_id" = $1 ORDER BY id;`;
-//       pool.query(queryText, [req.user.id]).then((result) => {
-//           res.send(result.rows);
-//       }).catch((error) => {
-//           console.log(error);
-//           res.sendStatus(500);
-//       });
-//     } else {
-//       res.sendStatus(401);
-//     }
-//   });
-
-/**
- * POST route template
- */
-// router.post('/', (req, res) => {
-//   // POST route code here
-// });
 
 module.exports = router;

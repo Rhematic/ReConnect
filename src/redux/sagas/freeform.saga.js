@@ -1,4 +1,3 @@
-// freeform.saga.js
 import axios from 'axios';
 import { put, takeLatest, call } from 'redux-saga/effects';
 
@@ -22,8 +21,6 @@ function* addFreeformReply(action) {
       date: action.payload.date,
     });
     yield put({ type: 'SET_REPLY_FREEFORM', payload: freeformReply.data });
-
-    // yield put({ type: 'SUBMIT_ALL_FORMS_SUCCESS', payload: freeformReply.data });
   } catch (error) {
     console.log('ERROR in addfreeFormReply', error);
     alert('Something went wrong!');

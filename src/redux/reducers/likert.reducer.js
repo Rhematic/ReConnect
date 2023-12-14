@@ -1,4 +1,3 @@
-// likert.reducer.js
 import { combineReducers } from 'redux';
 
 const likertList = (state = [], action) => {

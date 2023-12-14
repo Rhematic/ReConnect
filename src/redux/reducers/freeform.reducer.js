@@ -1,4 +1,3 @@
-// freeform.reducer.js
 import { combineReducers } from 'redux';
 
 const freeformList = (state = [], action) => {
