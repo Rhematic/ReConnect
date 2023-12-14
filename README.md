@@ -6,9 +6,6 @@
 Reconnect is a mental health and well being platform for families going through divorce with children at the center. Reconnect offers separate accounts for parents and children including a custody calendar, journal, emption survey, access to therapy, peer connection, and resources. Reconnect is on a mission to build a future of happier children and more resilient families. 
     <br />
     <br />
-<a href="LINK GOES HERE" target="_blank"><strong>JOIN RECONNECT»</strong></a>
-    <br />
-    <br />
     <a href="https://docs.google.com/document/d/101jtA3QJ7x5wuVp1GeXgvGrcZB8YwBn9OCv7VVni0n8/edit?usp=sharing" target="_blank">View Application Overview</a>
     <br />
     <a href="https://docs.google.com/document/d/1egaiGiEw7fzemX9nb9pkDb4jfK-DPASXCVSpf4zy5u8/edit?usp=sharing" target="_blank">Application Features and Bug Fixes</a>
