@@ -9,8 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import Nav from "../Nav/Nav";
-import Footer from "../Footer/Footer";
-
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AdminConsoleView from "../AdminConsoleView/AdminConsoleView";
@@ -159,7 +157,7 @@ function App() {
             // Otherwise, show the LandingPage
             <LandingPage />
           )}
-         
+
         </ProtectedRoute>
 
         <Route exact path="/resources">
